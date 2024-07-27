@@ -12,7 +12,7 @@ const Sidebar = () => {
         <h1 className="text-white font-semibold text-xl mt-10 mb-5">
           News Feed
         </h1>
-        <Link className="hover:bg-[#6556CD] hover:text-white duration-300 rounded-lg p-5">
+        <Link to="/trending" className="hover:bg-[#6556CD] hover:text-white duration-300 rounded-lg p-5">
           <i className="ri-fire-fill mr-2 "></i>
           <span>Trending</span>
         </Link>

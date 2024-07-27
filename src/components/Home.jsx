@@ -4,10 +4,13 @@ import Sidebar from "./templates/Sidebar";
 import Topnav from "./templates/Topnav";
 import HorizontalCards from "./templates/HorizontalCard";
 import { useEffect, useState } from "react";
+import Dropdown from "./templates/Dropdown";
+import Loading from "./Loading";
 
 const Home = () => {
   const [wallpaper, setWallpaper] = useState(null);
   const [trending, setTrending] = useState(null);
+  const [category, setCategory] = useState("all");
 
   const GetWallpaper = async () => {
     try {
@@ -22,19 +25,19 @@ const Home = () => {
 
   const GetTrending = async () => {
     try {
-      const { data } = await axios.get(`/trending/all/day`);
+      const { data } = await axios.get(`/trending/${category}/day`);
 
       setTrending(data.results);
     } catch (error) {
       console.log("Error:", error);
     }
   };
-  console.log("tre",trending)
+  console.log("tre", trending);
 
   useEffect(() => {
     !wallpaper && GetWallpaper();
-    !trending && GetTrending();
-  }, []);
+    GetTrending();
+  }, [category]);
 
   return wallpaper && trending ? (
     ((document.title = "Flixbay | Home"),
@@ -44,12 +47,18 @@ const Home = () => {
         <div className="w-[80%] h-full overflow-auto overflow-x-hidden ">
           <Topnav />
           <Header data={wallpaper} />
-          <HorizontalCards data={trending} />
+
+          <div className=" flex justify-between p-4">
+            <h1 className="text-3xl font-semibold text-zinc-400">Trending</h1>
+            <Dropdown  title="Filter" options={["tv", "movie", "all"]} func={(e)=>setCategory(e.target.value)} />
+          </div>
+
+          <HorizontalCards data={trending} function={setCategory} />
         </div>
       </>
     ))
   ) : (
-    <h1>Loading...</h1>
+    <Loading/>
   );
 };
 
