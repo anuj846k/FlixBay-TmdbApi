@@ -7,47 +7,45 @@ import Cards from "./templates/Cards";
 import Loading from "./Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-
-const Trending = () => {
+const Popular = () => {
+  document.title = "Flixbay | Popular ";
   const navigate = useNavigate();
-  const [category, setCategory] = useState("all");
-  const [duration, setDuration] = useState("day");
-  const [trending, setTrending] = useState([]);
+  const [category, setCategory] = useState("movie");
+
+  const [Popular, setPopular] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, sethasMore] = useState(true);
 
-  document.title = "Flixbay | Trending  ";
-  
-
-  const GetTrending = async () => {
+  const GetPopular = async () => {
     try {
-      const { data } = await axios.get(`/trending/${category}/${duration}?page=${page}`);
-      if(data.results.length >0){
-        setTrending((prev) => [...prev, ...data.results]);
-        setPage(page+1)
-      }else{
-        sethasMore(false)
+      const { data } = await axios.get(`${category}/popular?page=${page}`);
+      console.log(data);
+      if (data.results.length > 0) {
+        setPopular((prev) => [...prev, ...data.results]);
+        setPage(page + 1);
+      } else {
+        sethasMore(false);
       }
     } catch (error) {
       console.log("Error:", error);
     }
   };
-  const refreshHandle=async()=>{
-    if(trending.length === 0){
-      GetTrending()
-    }else{
-      setPage(1)
-      setTrending([])
-      GetTrending()
-    }
-  }
 
+  const refreshHandle = async () => {
+    if (Popular.length === 0) {
+      GetPopular();
+    } else {
+      setPage(1);
+      setPopular([]);
+      GetPopular();
+    }
+  };
 
   useEffect(() => {
-   refreshHandle()
-  }, [category, duration]);
+    refreshHandle();
+  }, [category]);
 
-  return trending.length > 0 ? (
+  return Popular.length > 0 ? (
     <div className=" w-screen h-screen   ">
       <div className="w-full flex items-center justify-between px-[3%]">
         <h1 className="text-3xl text-zinc-400 font-semibold">
@@ -55,31 +53,26 @@ const Trending = () => {
             onClick={() => navigate(-1)}
             className="hover:text-[#6556CD] ri-arrow-left-line cursor-pointer"
           ></i>
-          Trending
+          Popular
         </h1>
         <div className="flex items-center w-[80%]">
           <Topnav />
           <Dropdown
             title="Category"
-            options={["movie", "tv", "all"]}
+            options={["movie", "tv"]}
             func={(e) => setCategory(e.target.value)}
           />
           <div className="w-[2%]"></div>
-          <Dropdown
-            title="Duration"
-            options={["week", "day"]}
-            func={(e) => setDuration(e.target.value)}
-          />
         </div>
       </div>
 
       <InfiniteScroll
-        dataLength={trending.length} 
-        next={GetTrending}
+        dataLength={Popular.length}
+        next={GetPopular}
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
       >
-        <Cards data={trending} />
+        <Cards data={Popular} />
       </InfiniteScroll>
     </div>
   ) : (
@@ -87,4 +80,4 @@ const Trending = () => {
   );
 };
 
-export default Trending;
+export default Popular;

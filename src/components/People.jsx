@@ -7,47 +7,44 @@ import Cards from "./templates/Cards";
 import Loading from "./Loading";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-
-const Trending = () => {
+const People = () => {
+  document.title = "Flixbay | person";
   const navigate = useNavigate();
-  const [category, setCategory] = useState("all");
-  const [duration, setDuration] = useState("day");
-  const [trending, setTrending] = useState([]);
+  const [category, setCategory] = useState("popular");
+  const [person, setperson] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, sethasMore] = useState(true);
 
-  document.title = "Flixbay | Trending  ";
-  
-
-  const GetTrending = async () => {
+  const GetPerson = async () => {
     try {
-      const { data } = await axios.get(`/trending/${category}/${duration}?page=${page}`);
-      if(data.results.length >0){
-        setTrending((prev) => [...prev, ...data.results]);
-        setPage(page+1)
-      }else{
-        sethasMore(false)
+      const { data } = await axios.get(`/person/${category}?page=${page}`);
+      console.log(data);
+      if (data.results.length > 0) {
+        setperson((prev) => [...prev, ...data.results]);
+        setPage(page + 1);
+      } else {
+        sethasMore(false);
       }
     } catch (error) {
       console.log("Error:", error);
     }
   };
-  const refreshHandle=async()=>{
-    if(trending.length === 0){
-      GetTrending()
-    }else{
-      setPage(1)
-      setTrending([])
-      GetTrending()
-    }
-  }
 
+  const refreshHandle = async () => {
+    if (person.length === 0) {
+      GetPerson();
+    } else {
+      setPage(1);
+      setperson([]);
+      GetPerson();
+    }
+  };
 
   useEffect(() => {
-   refreshHandle()
-  }, [category, duration]);
+    refreshHandle();
+  }, [category]);
 
-  return trending.length > 0 ? (
+  return person.length > 0 ? (
     <div className=" w-screen h-screen   ">
       <div className="w-full flex items-center justify-between px-[3%]">
         <h1 className="text-3xl text-zinc-400 font-semibold">
@@ -55,31 +52,22 @@ const Trending = () => {
             onClick={() => navigate(-1)}
             className="hover:text-[#6556CD] ri-arrow-left-line cursor-pointer"
           ></i>
-          Trending
+          Person<small className="text-md ml-2 text-zinc-500 ">({category})</small>
         </h1>
         <div className="flex items-center w-[80%]">
           <Topnav />
-          <Dropdown
-            title="Category"
-            options={["movie", "tv", "all"]}
-            func={(e) => setCategory(e.target.value)}
-          />
+
           <div className="w-[2%]"></div>
-          <Dropdown
-            title="Duration"
-            options={["week", "day"]}
-            func={(e) => setDuration(e.target.value)}
-          />
         </div>
       </div>
 
       <InfiniteScroll
-        dataLength={trending.length} 
-        next={GetTrending}
+        dataLength={person.length}
+        next={GetPerson}
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
       >
-        <Cards data={trending} />
+        <Cards data={person} />
       </InfiniteScroll>
     </div>
   ) : (
@@ -87,4 +75,4 @@ const Trending = () => {
   );
 };
 
-export default Trending;
+export default People;
