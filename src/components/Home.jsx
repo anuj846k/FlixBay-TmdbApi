@@ -32,7 +32,6 @@ const Home = () => {
       console.log("Error:", error);
     }
   };
-  console.log("tre", trending);
 
   useEffect(() => {
     !wallpaper && GetWallpaper();
