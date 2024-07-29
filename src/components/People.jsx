@@ -45,7 +45,7 @@ const People = () => {
   }, [category]);
 
   return person.length > 0 ? (
-    <div className=" w-screen h-screen   ">
+    <div className=" w-screen h-screen">
       <div className="w-full flex items-center justify-between px-[3%]">
         <h1 className="text-3xl text-zinc-400 font-semibold">
           <i
@@ -67,7 +67,7 @@ const People = () => {
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
       >
-        <Cards data={person} />
+        <Cards data={person} title="person"/>
       </InfiniteScroll>
     </div>
   ) : (

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="w-[20%] h-full  border-r-2 border-zinc-400 p-10">
+    <div className="w-[20%] h-full  border-r-2 border-zinc-400 p-10 hidden  md:block">
       <h1 className="items-center text-2xl font-bold text-white">
         <i className="ri-tv-fill mr-2 text-[#6556CD] text-3xl"></i>
         <span className="text-3xl">Flixbay.</span>

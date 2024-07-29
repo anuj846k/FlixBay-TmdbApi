@@ -13,14 +13,14 @@ const Header = ({ data }) => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
-      className="w-full h-[55vh] flex flex-col justify-end p-[5%]"
+      className="w-full h-[55vh] flex flex-col justify-end items-start p-[5%]  "
     >
-      <h1 className="text-white font-black text-5xl">
+      <h1 className="text-white font-black md:text-5xl text-xl">
         {data.name || data.title || data.original_name || data.original_title}
       </h1>
-      <p className="w-2/3 mt-3 text-white">
+      <p className="md:w-2/3 w-full text-xs md:text-base  mt-3 text-white">
         {data.overview.slice(0, 200)}...
-        <Link className="text-blue-300">more</Link>
+        <Link to={`/${data.media_type}/details/${data.id}`} className="text-blue-300">more</Link>
       </p>
       <p className="text-white ">
         <i className="text-yellow-500 ri-megaphone-line mr-2"></i>
@@ -28,6 +28,9 @@ const Header = ({ data }) => {
         <i className="text-yellow-500 ml-5 mr-2 ri-album-fill"></i>
         {data.media_type.toUpperCase()}
       </p>
+      <Link className="mt-5 bg-[#6556CD] p-4 rounded text-white">
+      Watch Trailer
+      </Link>
     </div>
   );
 };

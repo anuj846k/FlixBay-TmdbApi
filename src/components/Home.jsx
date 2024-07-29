@@ -43,13 +43,13 @@ const Home = () => {
     (
       <>
         <Sidebar />
-        <div className="w-[80%] h-full overflow-auto overflow-x-hidden ">
+        <div className="md:w-[80%] w-full h-full overflow-auto overflow-x-hidden ">
           <Topnav />
           <Header data={wallpaper} />
 
-          <div className=" flex justify-between p-4">
-            <h1 className="text-3xl font-semibold text-zinc-400">Trending</h1>
-            <Dropdown  title="Filter" options={["tv", "movie", "all"]} func={(e)=>setCategory(e.target.value)} />
+          <div className=" flex justify-between p-4 items-center">
+            <h1 className="md:text-4xl text-3xl mr-10 font-semibold text-zinc-400">Trending</h1>
+            <Dropdown   title="Filter" options={["tv", "movie", "all"]} func={(e)=>setCategory(e.target.value)} />
           </div>
 
           <HorizontalCards data={trending} function={setCategory} />
