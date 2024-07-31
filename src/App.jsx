@@ -10,15 +10,14 @@ import TvDetails from "./components/templates/TvDetails";
 import PersonDetails from "./components/templates/PersonDetails";
 import About from "./components/About";
 import Trailer from "./components/templates/Trailer";
-import LocomotiveScroll from 'locomotive-scroll';
-
-
-
+import LocomotiveScroll from "locomotive-scroll";
+import Notfound from "./components/Notfound";
 
 const App = () => {
+  // eslint-disable-next-line no-unused-vars
   const locomotiveScroll = new LocomotiveScroll();
+
   return (
-    
     <div className="bg-[#1F1E24] h-full w-full  flex ">
       <Routes>
         <Route path="/" element={<Home />} />
@@ -29,10 +28,13 @@ const App = () => {
           <Route path="/movie/details/:id/trailer" element={<Trailer />} />
         </Route>
         <Route path="/tv" element={<Tv />} />
-        <Route path="/tv/details/:id" element={<TvDetails />} />
+        <Route path="/tv/details/:id" element={<TvDetails />}>
+          <Route path="/tv/details/:id/trailer" element={<Trailer />} />
+        </Route>
         <Route path="/person" element={<People />} />
         <Route path="/person/details/:id" element={<PersonDetails />} />
         <Route path="/about" element={<About />} />
+        <Route path="*" element={<Notfound />} />
       </Routes>
     </div>
   );

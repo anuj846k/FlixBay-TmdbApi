@@ -14,7 +14,7 @@ import HorizontalCard from "./HorizontalCard";
 const MovieDetails = () => {
   const { pathname } = useLocation();
   const { info } = useSelector((state) => state.movie);
-  console.log("Info:", info);
+  console.log("Movie Info:", info);
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -59,6 +59,9 @@ const MovieDetails = () => {
         >
           imdb
         </a>
+        <Link to="/" >
+        <i className="ri-home-2-line hover:text-[#6556CD]"></i>
+        </Link>
       </nav>
 
       {/* part-2 Movie poster and details */}

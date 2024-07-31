@@ -15,6 +15,7 @@ const HorizontalCard = ({ data }) => {
               item.backdrop_path || item.profile_path
             }`}
             alt=""
+            loading="lazy"
           />
           <div className="text-white p-4">
             <h1 className="text-lg mb-2 font-semibold">
