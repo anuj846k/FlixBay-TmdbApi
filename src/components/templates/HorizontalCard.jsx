@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const HorizontalCard = ({ data }) => {
   return (
     <div className="w-[100%]  flex overflow-y-hidden mb-5 p-5 scroll-smooth gap-4">
-      {data.map((item, index) => (
+      {data.length>0?data.map((item, index) => (
         <Link
           to={`/${item.media_type}/details/${item.id}`}
           key={index}
@@ -26,7 +26,7 @@ const HorizontalCard = ({ data }) => {
             </p>
           </div>
         </Link>
-      ))}
+      )):<h1 className="text-3xl mt-5 text-white font-black text-center">Nothing to Show</h1>}
     </div>
   );
 };

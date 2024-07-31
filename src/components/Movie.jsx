@@ -45,7 +45,7 @@ const Movie = () => {
   }, [category]);
 
   return movie.length > 0 ? (
-    <div className=" w-screen h-screen   ">
+    <div className=" w-screen h-screen  ">
       <div className="w-full flex items-center justify-between px-[3%]">
         <h1 className="text-3xl text-zinc-400 font-semibold">
           <i
