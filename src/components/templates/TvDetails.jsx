@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import noImage from "/noimage.jpg";
 import {
   Link,
   Outlet,
@@ -163,20 +164,20 @@ const TvDetails = () => {
       {/* seasons */}
 
       <h1 className="text-3xl font-bold mt-10 text-white ">Seasons</h1>
-      <div className="w-[100%]  flex overflow-y-hidden mb-5 p-5 scroll-smooth gap-4">
+      <div className="w-[100%]   flex overflow-y-hidden mb-5 p-5 scroll-smooth gap-4">
         {info.details.seasons.length>0 ?info.details.seasons.map((s, i) => (
           <div
             key={i}
-            className="md:min-w-[20%] min-w-[80%] bg-zinc-900 mr-5   shadow-lg overflow-hidden rounded-lg"
+            className="md:min-w-[20%] h-[40vh] min-w-[80%] bg-zinc-900 mr-5   shadow-lg overflow-hidden rounded-lg"
           >
             <img
               className="w-full h-[80%] object-cover"
-              src={`https://image.tmdb.org/t/p/original${s.poster_path}`}
+              src={s.poster_path?`https://image.tmdb.org/t/p/original${s.poster_path}`:noImage}
               alt=""
               loading="lazy"
             />
 
-            <h1 className="text-lg md:text-2xl  text-white font-semibold">
+            <h1 className="text-lg md:text-3xl p-2  text-white font-semibold">
               {s.name || s.original_name || s.original_title}
             </h1>
           </div>

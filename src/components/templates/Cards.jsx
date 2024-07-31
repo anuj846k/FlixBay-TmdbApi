@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import noImage from "/noimage.jpg";
 
 const Cards = ({ data,title }) => {
   console.log(title);
@@ -12,9 +13,9 @@ const Cards = ({ data,title }) => {
         >
           <img
             className="w-full h-3/4 object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)]"
-            src={`https://image.tmdb.org/t/p/original${
-              c.profile_path || c.backdrop_path
-            }`}
+            src={c.profile_path || c.backdrop_path || c.poster_path?`https://image.tmdb.org/t/p/original${
+              c.profile_path || c.backdrop_path || c.poster_path
+            }`:noImage}
             alt="poster image"
           />
           <div className="p-4">
